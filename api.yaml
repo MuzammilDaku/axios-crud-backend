@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: Muzammil Abbas Khan Baloch
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  - url: http://localhost:3001
+
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string 
+                  
+                   #  ----- Added lines  ----------------------------------------
+    post:
+      description: Add a Student
+      requestBody:
+        required: true
+        content:
+         multipart/form-data:
+            schema:
+              type: object 
+              required:
+                - name
+                - email
+                - phone
+                - address
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+                address:
+                  type: string
+
+      responses:
+        '201':
+          description: Successfully created a new artist
+
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string             
+
+  /users/{userId}:
+    get:
+      summary: Returns a user by ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Parameter description in CommonMark or HTML.
+          schema:
+            type : string
+            format: int64
+            minimum: 1
+      responses: 
+        '200':
+          description: OK      
+
+          patch:              
+             summary: Returns a user by ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Parameter description in CommonMark or HTML.
+          schema:
+            type : string
+            format: int64
+            minimum: 1
+      responses: 
+        '200':
+          description: OK      
